@@ -1,0 +1,15 @@
+# Configuration pour le serveur frontal (machine principale)
+server {
+    listen 80;
+    server_name "~^(?<subdomain>.+)\.{{ domain }}$";
+
+    location / {
+        # Vérifier si $subdomain existe et que sa valeur n'est pas nulle
+        if ($subdomain) {
+            # Redirection vers les serveurs appropriés en fonction du sous-domaine
+            proxy_pass http://{{ip_subdomain}};
+        }
+        # Ajoutez ici une action par défaut en cas de sous-domaine inconnu ou nul, si nécessaire
+        # Par exemple : return 404;
+    }
+}

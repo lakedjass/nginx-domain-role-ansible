@@ -1,0 +1,13 @@
+# Lines beginning with a # are comments, and are only included for
+# illustration. These comments are overkill for most inventory files.
+
+# Application servers
+[principal]
+192.168.56.4
+
+# Variables that will be applied to all servers
+[principal:vars]
+ansible_user=vagrant
+ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key
+domain_site="uat.nginx.test"
+ip_subdomain=192.168.56.5

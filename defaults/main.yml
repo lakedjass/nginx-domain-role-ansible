@@ -1,0 +1,6 @@
+---
+# defaults file for nginx.domain
+domain_site: "dev.nginx.test"
+ip_subdomain: 192.168.56.6
+
+domain : "{{ domain_site | regex_replace('\\.', '\\\\.') }}"

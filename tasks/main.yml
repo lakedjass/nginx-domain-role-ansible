@@ -1,0 +1,31 @@
+---
+# tasks file for nginx.domain
+
+- name: Install nginx if not installed
+  ansible.builtin.apt:
+    name:
+      - nginx
+    state: present
+    
+  notify:
+    - restart nginx
+
+- name: Change file ownership, group and permissions
+  ansible.builtin.file:
+    path: "/etc/nginx/sites-available/{{ domain_site }}.conf"
+    state: touch
+    modification_time: preserve
+    access_time: preserve
+
+- name: Create symbolic link to nginx configuration
+  file:
+    src: /etc/nginx/sites-available/{{ domain_site }}.conf
+    dest: /etc/nginx/sites-enabled/{{ domain_site }}.conf
+    state: link
+
+- name: Generate  nginx conf
+  template:
+    src: "nginx.conf.j2"
+    dest: "/etc/nginx/sites-available/{{ domain_site }}.conf"
+  notify:
+    - reload nginx
