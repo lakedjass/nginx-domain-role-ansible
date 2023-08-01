@@ -1,0 +1,1 @@
+# nginx-domain-role-ansible
